@@ -19,9 +19,12 @@ public class IndexController {
     private MinefieldRepository minefields;
 
     @GetMapping({"", "/"})
-    public String index(Model model) {
+    public String index(Model model)
+    {
+        model.addAttribute("minefields", minefields.findAll());
         return "index";
     }
+
 
     @GetMapping("/minesweeper/create")
     public String create(Model model){

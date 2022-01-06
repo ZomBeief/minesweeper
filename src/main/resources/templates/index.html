@@ -28,6 +28,20 @@
                 </form>
             </td>
         </tr>
+        <tr th:each="mode : ${modes}" th:object="${mode}">
+            <td th:text="*{id}">1</td>
+            <td th:text="*{label}">Normal</td>
+            <td th:text="|*{width}&nbsp;x&nbsp;*{height}|">10 x 10</td>
+            <td th:text="*{mines}">10</td>
+            <td>
+                <a th:href="@{|/mode/edit/*{id}|}" class="btn btn-primary" role="button">
+                    <span class="oi oi-pencil" title="Modifier" aria-hidden="true"></span>
+                </a>
+                <a th:href="@{|/mode/delete/*{id}|}" class="btn btn-danger" role="button">
+                    <span class="oi oi-delete" title="Supprimer" aria-hidden="true"></span>
+                </a>
+            </td>
+        </tr>
         </tbody>
     </table>
 </div>

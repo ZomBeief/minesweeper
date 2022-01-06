@@ -20,11 +20,11 @@
             <td th:text="|*{width}x*{height}|"></td>
             <td th:text="*{count}"></td>
             <td>
-                <form action="#" th:action="@{/delete/{id}(id=*{id})}" method="post" style="display: inline">
-                    <button type="submit" class="btn btn-danger"><i class="ri-delete-bin-line"></i></button>
-                </form>
                 <form action="#" th:action="@{/minesweeper/play/{id}(id=*{id})}" method="post" style="display: inline">
-                    <button type="submit" class="btn btn-danger"><i class="ri-play-bin-line"></i></button>
+                    <button type="submit" class="btn btn-outline-success">Play<i class="ri-play-bin-line"></i></button>
+                </form>
+                <form action="#" th:action="@{/delete/{id}(id=*{id})}" method="post" style="display: inline">
+                    <button type="submit" class="btn btn-outline-danger">Delete<i class="ri-delete-bin-line"></i></button>
                 </form>
             </td>
         </tr>

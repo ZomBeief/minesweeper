@@ -29,7 +29,7 @@ public class IndexController {
         return "create";
     }
 
-    @GetMapping("/minesweeper/create")
+    @PostMapping("/minesweeper/create")
     public String createPost(@ModelAttribute Minefield minefield){
         minefield.setMinefield();
         minefields.save(minefield);

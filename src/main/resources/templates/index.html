@@ -7,6 +7,29 @@
     <h1>Welcome to Minesweeper</h1>
 
     <p>This is a really great game !</p>
+    <table class="table">
+        <thead class="thead-dark">
+        <tr>
+            <th>Size</th>
+            <th>Mine Count</th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="minefield: ${minefields}" th:object="${minefield}">
+            <td th:text="|*{width}x*{height}|"></td>
+            <td th:text="*{count}"></td>
+            <td>
+                <form action="#" th:action="@{/delete/{id}(id=*{id})}" method="post" style="display: inline">
+                    <button type="submit" class="btn btn-danger"><i class="ri-delete-bin-line"></i></button>
+                </form>
+                <form action="#" th:action="@{/minesweeper/play/{id}(id=*{id})}" method="post" style="display: inline">
+                    <button type="submit" class="btn btn-danger"><i class="ri-play-bin-line"></i></button>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
 </div>
 </body>
 </html>

@@ -117,7 +117,7 @@ public class Minefield {
     public void discoverAll(){
         for(int i=0;i<height;i++){
             for(int j=0;j<width;i++){
-                discover(i,j);
+                //discover(i,j);
             }
         }
     }

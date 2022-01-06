@@ -36,7 +36,7 @@ public class IndexController {
     public String createPost(@ModelAttribute Minefield minefield){
         minefield.setMinefield();
         minefields.save(minefield);
-        return "redirect:/"; //"redirect:/minesweeper/play/" + minefield.getId();
+        return "redirect:/"; //"redirect:/minesweeper/play/" + minefield.getId(); TEST
     }
     @PostMapping("/delete/{id}")
     public String delete(@PathVariable UUID id){

@@ -80,44 +80,42 @@ public class Minefield {
  }
  }
  **/
-    /**
+
      public boolean discover(int row, int col){
-     int i=-1;
-     char name = ' ';
-     switch (i){
-     case 0:
-     name = ' ';
-     case 1:
-     case 2:
-     case 3:
-     case 4:
-     case 5:
-     case 6:
-     case 7:
-     case 8:
-     case 9:
-     minefield[row][col]+=10;
-     case 10:
-     case 11:
-     case 12:
-     case 13:
-     case 14:
-     case 15:
-     case 16:
-     case 17:
-     case 18:
-     minefield[row][col]-=10;
-     break;
-     default:
-     }
+
+        switch (minefield[row][col]){
+            case 9:
+                minefield[row][col]-=10;
+                return false;
+            case 0:
+            case 10:
+                for(int i = -1; i<2;i++) {
+                    for (int j = -1; j < 2; j++) {
+                        if (-1 < row + i && row + i < height && -1 < col + j && col + j < width && minefield[row + j][col + j] > 8) {
+                            minefield[row + i][col + j] -= 10;
+                        }
+                    }
+                }
+            case 11:
+            case 12:
+            case 13:
+            case 14:
+            case 15:
+            case 16:
+            case 17:
+            case 18:
+                minefield[row][col]-=10;
+                break;
+        default:
+        }
      return true;
-     }**/
+     }
 
 
     public void discoverAll(){
         for(int i=0;i<height;i++){
             for(int j=0;j<width;i++){
-                //discover(i,j);
+                discover(i,j);
             }
         }
     }

@@ -81,18 +81,17 @@ public class Minefield {
  }
  **/
 
-     public boolean discover(int row, int col){
+     public boolean discover(long row, long col){
 
-        switch (minefield[row][col]){
+        switch (minefield[(int) row][(int) col]){
             case 9:
-                minefield[row][col]-=10;
-                return false;
-            case 0:
+                minefield[(int) row][(int) col]-=10;
+                break;
             case 10:
                 for(int i = -1; i<2;i++) {
                     for (int j = -1; j < 2; j++) {
-                        if (-1 < row + i && row + i < height && -1 < col + j && col + j < width && minefield[row + j][col + j] > 8) {
-                            minefield[row + i][col + j] -= 10;
+                        if (-1 < row + i && row + i < height && -1 < col + j && col + j < width && minefield[(int) (row + i)][(int) (col + j)] > 8) {
+                            minefield[(int) (row + i)][(int) (col + j)] -= 10;
                         }
                     }
                 }
@@ -104,7 +103,7 @@ public class Minefield {
             case 16:
             case 17:
             case 18:
-                minefield[row][col]-=10;
+                minefield[(int) row][(int) col]-=10;
                 break;
         default:
         }

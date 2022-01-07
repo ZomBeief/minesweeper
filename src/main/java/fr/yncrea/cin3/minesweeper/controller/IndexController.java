@@ -41,12 +41,14 @@ public class IndexController {
     public String postPlay (@PathVariable UUID id){
         return "redirect:/play/" + id;
     }
-    @GetMapping({"/play/{id}","/play/{id}/{row}/{col}"})
-    public String play(@PathVariable UUID id, @PathVariable(required = false) Long row, @PathVariable(required = false) Long col,  Model model) {
-        Minefield minefield = minefields.findById(id).orElseThrow(() -> new RuntimeException("Minefield not found"));
-
-        minefields.save(minefield);
-        model.addAttribute("minefield", minefield);
+    @GetMapping({"/play/{id}","/play/{id}/{x}/{y}"})
+    public String play(@PathVariable UUID id, @PathVariable(required = false) Long x, @PathVariable(required = false) Long y,  Model model) {
+        Minefield m = minefields.findById(id).orElseThrow(() -> new RuntimeException("Minefield not found"));
+        if(x != null && y != null){
+            m.discover(y-1,x-1);
+        }
+        minefields.save(m);
+        model.addAttribute("m", m);
         return "play";
     }
         @PostMapping("/delete/{id}")

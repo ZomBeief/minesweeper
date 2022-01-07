@@ -5,12 +5,12 @@
 <body>
 <div th:fragment="content">
 <table>
-    <tbody th:object="${m}">
+    <tbody>
     <br>
     <div class="alert alert-info">
         <span class="ri-information-fill float-left"></span>
         <span class="ri-information-fill float-right"></span>
-        <div class="text-center" role="alert" > Here is the field, There are <span th:text="${minefield.getCount()}"></span> mines their !</div>
+        <div class="text-center" role="alert" > Here is the field, There are <span th:text="${m.getCount()}"></span> mines their !</div>
     </div>
     <br>
     <div class="alert alert-danger">
@@ -24,13 +24,11 @@
         <span class="ri-emotion-happy-fill float-right"></span>
         <div class="text-center" role="alert" >GG, you win !</div>
     </div>
-
     <table>
-        <tr th:each="y, row: ${minefield.getMinefield()}">
-            <td th:each="x, col: ${y}" th:onclick="@{location.href='http://localhost:8080/play/{id}/{row}/{col}'(id=*{minefield.id},row=*{row.count},col=*{col.count})}" style="border: 1px solid black">
-                <div th:text="${x}" style="width: 25px ; height: 25px">
-
-                </div>
+        <tr th:each="row, y: ${m.getMinefield()}">
+            <td th:each="val, x: ${row}" th:onclick="@{location.href='http://localhost:8080/play/{id}/{x}/{y}'(id=*{m.id},x=*{x.count},y=*{y.count})}" style="border: 1px solid black">
+                <div th:if="${val>8}" style="width: 25px ; height: 25px"></div>
+                <div th:text="${val}" th:if="${val<9}" style="width: 25px ; height: 25px"></div>
 
             </td>
         </tr>

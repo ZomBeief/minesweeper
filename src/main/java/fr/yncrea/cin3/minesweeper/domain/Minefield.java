@@ -29,7 +29,6 @@ public class Minefield {
     }
 
     public Minefield(long width, long height) {
-        super();
         this.width = width;
         this.height = height;
     }

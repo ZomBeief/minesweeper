@@ -24,33 +24,44 @@ public class IndexController {
         return "index";
     }
 
-    @GetMapping("/minesweeper/create")
+    @GetMapping("/create")
     public String create(Model model) {
         model.addAttribute("form", new Minefield());
         return "create";
     }
 
-    @PostMapping("/minesweeper/create")
+   /*@PostMapping("/create")
+    public String createPost(@ModelAttribute Minefield form) {
+        Minefield m = new Minefield();
+        if (form.getId() != null) {
+            m = minefields.findById(form.getId()).orElseThrow(() ->  new RuntimeException("User not found"));
+        }
+        m.setCount(form.getCount());
+        m.setWidth(form.getWidth());
+        m.setHeight(form.getHeight());
+        minefields.save(m);
+        return "redirect:/play/" + m.getId();
+    }*/
+
+    @PostMapping("/create")
     public String createPost(@ModelAttribute Minefield minefield) {
         minefield.setMinefield();
         minefields.save(minefield);
-        return "redirect:/"; //"redirect:/minesweeper/play/" + minefield.getId(); TEST
+        return "redirect:/play/" + minefield.getId();
     }
 
-    @GetMapping("/minesweeper/play/{id}")
-    public String jeu(@PathVariable(required = false) UUID id, Model model) {
-        Minefield m2  = new Minefield();
-        model.addAttribute("m2", m2);
-        if (id != null) {
-            Minefield m = minefields.findById(id).orElseThrow(() -> new RuntimeException("Minefield not found"));
-            m2.setId(m.getId());
-            m2.setWidth(m.getWidth());
-            m2.setHeight(m.getHeight());
-            m2.setCount(m.getCount());
-        }
+    @GetMapping("/play/{id}")
+    public String play(@PathVariable UUID id, Model model) {
+        Minefield m = minefields.findById(id).orElseThrow(() -> new RuntimeException("Minefield not found"));
+
+
+        model.addAttribute("m", m);
         return "play";
     }
-
+    @PostMapping("/play/{id}")
+    public String postPlay (@PathVariable UUID id){
+        return "redirect:/play/" + id;
+    }
         @PostMapping("/delete/{id}")
         public String delete (@PathVariable UUID id){
             minefields.deleteById(id);

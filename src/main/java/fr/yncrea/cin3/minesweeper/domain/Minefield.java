@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import javax.sql.rowset.BaseRowSet;
 import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
@@ -23,6 +24,9 @@ public class Minefield {
 
     @Lob
     private int[][] minefield;
+
+    private boolean gagner;
+    private boolean perdue;
 
     public Minefield() {
 
@@ -86,7 +90,7 @@ public class Minefield {
         switch (minefield[(int) row][(int) col]){
             case 9:
                 minefield[(int) row][(int) col]-=10;
-                break;
+                return false;
             case 10:
                 for(int i = -1; i<2;i++) {
                     for (int j = -1; j < 2; j++) {
@@ -95,6 +99,7 @@ public class Minefield {
                         }
                     }
                 }
+                break;
             case 11:
             case 12:
             case 13:
@@ -133,6 +138,21 @@ public class Minefield {
         }else{
             return false;
         }
+    }
+
+    public boolean win(){
+         int i=0;
+        for(int j=0;j<height;j++){
+            for(int k=0; k < width;k++){
+                if(minefield[j][k]<9){
+                    i++;
+                }
+            }
+        }
+        if(i==width*height-count){
+            return true;
+        }
+        return false;
     }
 
 }

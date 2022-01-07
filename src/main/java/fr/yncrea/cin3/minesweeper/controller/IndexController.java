@@ -45,7 +45,13 @@ public class IndexController {
     public String play(@PathVariable UUID id, @PathVariable(required = false) Long x, @PathVariable(required = false) Long y,  Model model) {
         Minefield m = minefields.findById(id).orElseThrow(() -> new RuntimeException("Minefield not found"));
         if(x != null && y != null){
-            m.discover(y-1,x-1);
+            if(!m.discover(y-1,x-1)){
+                m.setPerdue(true);
+            }
+        }
+        if(m.win()){
+            m.setGagner(true);
+
         }
         minefields.save(m);
         model.addAttribute("m", m);

@@ -13,13 +13,13 @@
         <div class="text-center" role="alert" > Here is the field, There are <span th:text="${m.getCount()}"></span> mines their !</div>
     </div>
     <br>
-    <div class="alert alert-danger">
+    <div class="alert alert-danger " th:if="${m.isPerdue()}">
         <span class="ri-emotion-unhappy-fill float-left"></span>
         <span class="ri-emotion-unhappy-fill float-right"></span>
         <div class="text-center" role="alert" >you loose !</div>
     </div>
     <br>
-    <div class="alert alert-success">
+    <div class="alert alert-success" th:if="${m.isGagner() && !m.isPerdue}">
         <span class="ri-emotion-happy-fill float-left"></span>
         <span class="ri-emotion-happy-fill float-right"></span>
         <div class="text-center" role="alert" >GG, you win !</div>
@@ -28,7 +28,8 @@
         <tr th:each="row, y: ${m.getMinefield()}">
             <td th:each="val, x: ${row}" th:onclick="@{location.href='http://localhost:8080/play/{id}/{x}/{y}'(id=*{m.id},x=*{x.count},y=*{y.count})}" style="border: 1px solid black">
                 <div th:if="${val>8}" style="width: 25px ; height: 25px"></div>
-                <div th:text="${val}" th:if="${val<9}" style="width: 25px ; height: 25px"></div>
+                <div th:text="${val}" th:if="${val<9 && val != -1}" style="width: 25px ; height: 25px"></div>
+                <img th:if="${val == -1}" style="width: 25px ; height: 25px" src="https://p7.storage.canalblog.com/77/24/1509481/115696582.png">
 
             </td>
         </tr>

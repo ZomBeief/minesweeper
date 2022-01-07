@@ -1,8 +1,44 @@
 <html th:replace="~{layout :: layout(~{::title}, ~{::content})}" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title th:fragment="title">Create</title>
+    <title th:fragment="title">Play</title>
 </head>
 <body>
-<div th:fragment="content">test</div>
+<div th:fragment="content">
+<table>
+    <tbody th:object="${m}">
+    <br>
+    <div class="alert alert-info">
+        <span class="ri-information-fill float-left"></span>
+        <span class="ri-information-fill float-right"></span>
+        <div class="text-center" role="alert" >Voici le champs de mines, il y a <span th:text="*{count}"></span> mines dedans !</div>
+    </div>
+    <br>
+    <div class="alert alert-danger">
+        <span class="ri-emotion-unhappy-fill float-left"></span>
+        <span class="ri-emotion-unhappy-fill float-right"></span>
+        <div class="text-center" role="alert" >Oh non, vous avez perdu !</div>
+    </div>
+    <br>
+    <div class="alert alert-success">
+        <span class="ri-emotion-happy-fill float-left"></span>
+        <span class="ri-emotion-happy-fill float-right"></span>
+        <div class="text-center" role="alert" >Bravo, vous avez gagné !</div>
+    </div>
+
+    <table class="minefield">
+        <tr th:each="y: ${#numbers.sequence(0, m.height - 1)}">
+            <td th:each="x: ${#numbers.sequence(0, m.width - 1)}">
+                <div>
+                    <a href="#" th:href="|@{/jeu/}${m.id}/${x}/${y}?action=${action}"></a>
+                </div>
+
+            </td>
+        </tr>
+    </table>
+
+    </tbody>
+
+</table>
+    </div>
 </body>
 </html>

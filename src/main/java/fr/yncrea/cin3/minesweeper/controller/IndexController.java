@@ -30,19 +30,6 @@ public class IndexController {
         return "create";
     }
 
-   /*@PostMapping("/create")
-    public String createPost(@ModelAttribute Minefield form) {
-        Minefield m = new Minefield();
-        if (form.getId() != null) {
-            m = minefields.findById(form.getId()).orElseThrow(() ->  new RuntimeException("User not found"));
-        }
-        m.setCount(form.getCount());
-        m.setWidth(form.getWidth());
-        m.setHeight(form.getHeight());
-        minefields.save(m);
-        return "redirect:/play/" + m.getId();
-    }*/
-
     @PostMapping("/create")
     public String createPost(@ModelAttribute Minefield minefield) {
         minefield.setMinefield();
@@ -50,17 +37,17 @@ public class IndexController {
         return "redirect:/play/" + minefield.getId();
     }
 
-    @GetMapping("/play/{id}")
-    public String play(@PathVariable UUID id, Model model) {
-        Minefield m = minefields.findById(id).orElseThrow(() -> new RuntimeException("Minefield not found"));
-
-
-        model.addAttribute("m", m);
-        return "play";
-    }
     @PostMapping("/play/{id}")
     public String postPlay (@PathVariable UUID id){
         return "redirect:/play/" + id;
+    }
+    @GetMapping({"/play/{id}","/play/{id}/{row}/{col}"})
+    public String play(@PathVariable UUID id, @PathVariable(required = false) Long row, @PathVariable(required = false) Long col,  Model model) {
+        Minefield minefield = minefields.findById(id).orElseThrow(() -> new RuntimeException("Minefield not found"));
+
+        minefields.save(minefield);
+        model.addAttribute("minefield", minefield);
+        return "play";
     }
         @PostMapping("/delete/{id}")
         public String delete (@PathVariable UUID id){

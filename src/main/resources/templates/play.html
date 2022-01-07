@@ -10,26 +10,26 @@
     <div class="alert alert-info">
         <span class="ri-information-fill float-left"></span>
         <span class="ri-information-fill float-right"></span>
-        <div class="text-center" role="alert" >Voici le champs de mines, il y a <span th:text="*{count}"></span> mines dedans !</div>
+        <div class="text-center" role="alert" > Here is the field, There are <span th:text="${minefield.getCount()}"></span> mines their !</div>
     </div>
     <br>
     <div class="alert alert-danger">
         <span class="ri-emotion-unhappy-fill float-left"></span>
         <span class="ri-emotion-unhappy-fill float-right"></span>
-        <div class="text-center" role="alert" >Oh non, vous avez perdu !</div>
+        <div class="text-center" role="alert" >you loose !</div>
     </div>
     <br>
     <div class="alert alert-success">
         <span class="ri-emotion-happy-fill float-left"></span>
         <span class="ri-emotion-happy-fill float-right"></span>
-        <div class="text-center" role="alert" >Bravo, vous avez gagné !</div>
+        <div class="text-center" role="alert" >GG, you win !</div>
     </div>
 
-    <table class="minefield">
-        <tr th:each="y: ${#numbers.sequence(0, m.height - 1)}">
-            <td th:each="x: ${#numbers.sequence(0, m.width - 1)}">
-                <div>
-                    <a href="#" th:href="|@{/jeu/}${m.id}/${x}/${y}?action=${action}"></a>
+    <table>
+        <tr th:each="y, row: ${minefield.getMinefield()}">
+            <td th:each="x, col: ${y}" th:onclick="@{location.href='http://localhost:8080/play/{id}/{row}/{col}'(id=*{minefield.getId()},row=*{row.count},col=*{col.count})}" style="border: 1px solid black">
+                <div th:text="${x}" style="width: 25px ; height: 25px">
+
                 </div>
 
             </td>

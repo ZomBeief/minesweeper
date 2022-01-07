@@ -37,9 +37,9 @@ public class IndexController {
         return "redirect:/"; //"redirect:/minesweeper/play/" + minefield.getId(); TEST
     }
 
-    @GetMapping("/jeu/{id}")
-    public String play(@PathVariable(required = false) UUID id, Model model) {
-        Minefield m2 = new Minefield();
+    @GetMapping("/minesweeper/play/{id}")
+    public String jeu(@PathVariable(required = false) UUID id, Model model) {
+        Minefield m2  = new Minefield();
         model.addAttribute("m2", m2);
         if (id != null) {
             Minefield m = minefields.findById(id).orElseThrow(() -> new RuntimeException("Minefield not found"));
@@ -48,9 +48,9 @@ public class IndexController {
             m2.setHeight(m.getHeight());
             m2.setCount(m.getCount());
         }
-        return "/jeu";
-
+        return "play";
     }
+
         @PostMapping("/delete/{id}")
         public String delete (@PathVariable UUID id){
             minefields.deleteById(id);

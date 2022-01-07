@@ -27,7 +27,7 @@
 
     <table>
         <tr th:each="y, row: ${minefield.getMinefield()}">
-            <td th:each="x, col: ${y}" th:onclick="@{location.href='http://localhost:8080/play/{id}/{row}/{col}'(id=*{minefield.getId()},row=*{row.count},col=*{col.count})}" style="border: 1px solid black">
+            <td th:each="x, col: ${y}" th:onclick="@{location.href='http://localhost:8080/play/{id}/{row}/{col}'(id=*{minefield.id},row=*{row.count},col=*{col.count})}" style="border: 1px solid black">
                 <div th:text="${x}" style="width: 25px ; height: 25px">
 
                 </div>
